@@ -4,7 +4,10 @@
 
 参考姊妹项目：[learning-vue3](https://github.com/xiaoqianran/learning-vue3)
 
+**在线访问：** [https://xiaoqianran.github.io/learning-nestJS/](https://xiaoqianran.github.io/learning-nestJS/)  
 **仓库：** [https://github.com/xiaoqianran/learning-nestJS](https://github.com/xiaoqianran/learning-nestJS)
+
+> GitHub Pages 由 **Actions** 自动部署（`Deploy to GitHub Pages` workflow，push `main` 触发）。
 
 ---
 
@@ -83,11 +86,21 @@ npm run dev
 
 ```bash
 npm run dev        # 开发
-npm run build      # 生产构建
+npm run build      # 生产构建（Vercel）
+npm run build:pages # GitHub Pages 静态构建
 npm run typecheck  # TypeScript 检查
 ```
 
 GitHub Pages 静态构建会设置 `GITHUB_PAGES=true`，`base` 为 `/learning-nestJS/`。
+
+---
+
+## 部署
+
+- **GitHub Pages：** 仓库 Settings → Pages → **Source = GitHub Actions**  
+  Workflow：`.github/workflows/deploy-pages.yml`（`push` 到 `main` 或手动 `workflow_dispatch`）  
+  站点：https://xiaoqianran.github.io/learning-nestJS/
+- **Vercel：** `npm run build`（nitro preset vercel）
 
 ---
 
