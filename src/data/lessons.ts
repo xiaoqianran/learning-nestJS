@@ -60,18 +60,64 @@ export const LESSONS: Lesson[] = [
     summary: "渐进式 Node 后端框架：模块、装饰器、依赖注入。",
     level: "入门",
     track: "基础",
-    minutes: 8,
+    minutes: 12,
     official: "/",
     blocks: [
       {
         type: "text",
-        title: "为什么是 Nest",
-        body: "NestJS 用 TypeScript + 装饰器，把 Express/Fastify 包成「可测试、可扩展」的应用架构。核心隐喻来自 Angular：Module 组织边界，Controller 接 HTTP，Provider 装业务，通过 DI 注入。\n\n学习方法：看源码 → 点 Demo 模拟请求 → 做测验。",
+        title: "概念深讲",
+        body: `NestJS 用 TypeScript + 装饰器，把 Express/Fastify 包成「可测试、可扩展」的应用架构。核心隐喻来自 Angular：Module 组织边界，Controller 接 HTTP，Provider 装业务，通过 DI 注入。
+
+学习方法：看源码 → 点 Demo 模拟请求 → 做测验。
+
+为什么这一节重要：渐进式 Node 后端框架：模块、装饰器、依赖注入。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「NestJS 是什么」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `Nest 默认底层是 Express；也可换 Fastify。业务代码尽量不绑死底层 API。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「NestJS 是什么」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「intro」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是NestJS 是什么？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "最小应用",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `// main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -93,27 +139,43 @@ export class AppController {
   }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：NestJS 是什么
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "hello", title: "动手：发一次 GET /" },
       {
         type: "tip",
-        body: "Nest 默认底层是 Express；也可换 Fastify。业务代码尽量不绑死底层 API。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "i1",
-            question: "Nest 的组织方式更接近？",
-            options: ["纯脚本拼装", "模块 + 装饰器 + DI", "仅 class 无装饰器", "只写路由文件"],
+            id: "intro-0b4b-1",
+            question: "关于「NestJS 是什么」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Module / Controller / Provider + DI。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "i2",
-            question: "Controller 主要职责？",
-            options: ["连数据库", "接 HTTP 并委托业务", "画页面", "管进程"],
+            id: "intro-0b4b-2",
+            question: "学习「NestJS 是什么」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "路由与入参，业务放 Service。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "intro-0b4b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -125,18 +187,64 @@ export class AppController {
     summary: "nest new / nest g · 目录约定。",
     level: "入门",
     track: "基础",
-    minutes: 8,
+    minutes: 12,
     official: "/cli/overview",
     blocks: [
       {
         type: "text",
-        title: "从 CLI 开始",
-        body: "`@nestjs/cli` 是官方脚手架。`nest new` 生成完整项目；`nest g resource notes` 可一次生成 module/controller/service/DTO。\n\nsrc/ 下常见：main.ts 入口、app.module.ts 根模块、*.module / *.controller / *.service。",
+        title: "概念深讲",
+        body: `\`@nestjs/cli\` 是官方脚手架。\`nest new\` 生成完整项目；\`nest g resource notes\` 可一次生成 module/controller/service/DTO。
+
+src/ 下常见：main.ts 入口、app.module.ts 根模块、*.module / *.controller / *.service。
+
+为什么这一节重要：nest new / nest g · 目录约定。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「CLI 与项目骨架」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `开发用 start:dev（watch）；生产用 nest build + node dist/main。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「CLI 与项目骨架」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「cli-first-app」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是CLI 与项目骨架？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "常用命令",
-        lang: "bash",
+        title: "对应源码",
+        lang: "tsx",
         code: `npm i -g @nestjs/cli
 nest new learning-nest
 cd learning-nest
@@ -148,25 +256,41 @@ nest g resource cats --no-spec
 npm run start:dev`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：CLI 与项目骨架
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: "开发用 start:dev（watch）；生产用 nest build + node dist/main。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "c1",
-            question: "生成模块的 CLI？",
-            options: ["nest make module", "nest g module", "nest new module", "npm module"],
+            id: "cli-first-app-7af8-1",
+            question: "关于「CLI 与项目骨架」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "nest generate / nest g。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "c2",
-            question: "根模块文件通常是？",
-            options: ["index.ts", "app.module.ts", "server.js", "routes.ts"],
+            id: "cli-first-app-7af8-2",
+            question: "学习「CLI 与项目骨架」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "AppModule 挂到 NestFactory.create。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "cli-first-app-7af8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -178,18 +302,59 @@ npm run start:dev`,
     summary: "imports / controllers / providers / exports。",
     level: "入门",
     track: "基础",
-    minutes: 10,
+    minutes: 12,
     official: "/modules",
     blocks: [
       {
         type: "text",
-        title: "模块是边界",
-        body: "每个功能域一个 Module。providers 仅本模块可见；要给别的模块用，必须 exports。imports 引入其他模块的 exports。\n\n根 AppModule 组装全局图；业务模块保持小而内聚。",
+        title: "概念深讲",
+        body: `每个功能域一个 Module。providers 仅本模块可见；要给别的模块用，必须 exports。imports 引入其他模块的 exports。
+
+根 AppModule 组装全局图；业务模块保持小而内聚。
+
+为什么这一节重要：imports / controllers / providers / exports。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「模块 Module」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「模块 Module」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「modules」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是模块 Module？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "CatsModule",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
@@ -207,23 +372,43 @@ export class CatsModule {}
 })
 export class AppModule {}`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：模块 Module
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "module-graph", title: "动手：模块依赖图" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "m1",
-            question: "跨模块注入 Service 需要？",
-            options: ["只写 providers", "exports + imports", "全局变量", "在 controller  new"],
+            id: "modules-0eb9-1",
+            question: "关于「模块 Module」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "提供方 exports，使用方 imports。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "m2",
-            question: "controllers 数组放什么？",
-            options: ["任意 class", "路由控制器", "中间件", "实体"],
+            id: "modules-0eb9-2",
+            question: "学习「模块 Module」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "Controller 负责路由。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "modules-0eb9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -240,13 +425,54 @@ export class AppModule {}`,
     blocks: [
       {
         type: "text",
-        title: "路由映射",
-        body: "`@Controller('cats')` 设前缀。方法上 `@Get()`、`@Post()`、`@Get(':id')` 等映射动词与路径。\n\n参数：`@Param('id')`、`@Query()`、`@Body()`、`@Headers()`、`@Req()`。尽量用 DTO 而不是裸 any。",
+        title: "概念深讲",
+        body: `\`@Controller('cats')\` 设前缀。方法上 \`@Get()\`、\`@Post()\`、\`@Get(':id')\` 等映射动词与路径。
+
+参数：\`@Param('id')\`、\`@Query()\`、\`@Body()\`、\`@Headers()\`、\`@Req()\`。尽量用 DTO 而不是裸 any。
+
+为什么这一节重要：@Get @Post · 路径 · 参数装饰器。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「控制器 Controller」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「控制器 Controller」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「controllers」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是控制器 Controller？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "REST 控制器",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Controller('cats')
 export class CatsController {
   constructor(private readonly cats: CatsService) {}
@@ -267,23 +493,43 @@ export class CatsController {
   }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：控制器 Controller
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "controller", title: "动手：路由匹配" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "r1",
-            question: "取路径参数 id？",
-            options: ["@Query('id')", "@Param('id')", "@Body('id')", "@Header('id')"],
+            id: "controllers-2068-1",
+            question: "关于「控制器 Controller」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "@Param。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "r2",
-            question: "Controller 里写重业务？",
-            options: ["推荐", "应下沉到 Service", "必须写 SQL", "只能写 static"],
+            id: "controllers-2068-2",
+            question: "学习「控制器 Controller」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "薄控制器、厚服务。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "controllers-2068-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -300,13 +546,54 @@ export class CatsController {
     blocks: [
       {
         type: "text",
-        title: "DI 是核心",
-        body: "Service 标 `@Injectable()`，在 module providers 注册后，可在 constructor 注入。Nest 容器解析依赖图，方便单测 mock。\n\n自定义：`{ provide: 'CONFIG', useValue }` / `useFactory` / `useClass`。",
+        title: "概念深讲",
+        body: `Service 标 \`@Injectable()\`，在 module providers 注册后，可在 constructor 注入。Nest 容器解析依赖图，方便单测 mock。
+
+自定义：\`{ provide: 'CONFIG', useValue }\` / \`useFactory\` / \`useClass\`。
+
+为什么这一节重要：@Injectable · constructor 注入 · 自定义 token。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Provider 与依赖注入」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Provider 与依赖注入」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「providers」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Provider 与依赖注入？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "注入示例",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class CatsService {
   private items: Cat[] = [];
@@ -324,23 +611,43 @@ export class CatsController {
   constructor(private readonly cats: CatsService) {}
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Provider 与依赖注入
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "provider-di", title: "动手：DI 容器" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "p1",
-            question: "Service 要被注入需？",
-            options: ["export 即可", "@Injectable + providers 注册", "写 global", "继承 Controller"],
+            id: "providers-29d2-1",
+            question: "关于「Provider 与依赖注入」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "装饰器 + 模块注册。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "p2",
-            question: "useFactory 适合？",
-            options: ["写 UI", "异步/条件创建依赖", "替代 Controller", "关 DI"],
+            id: "providers-29d2-2",
+            question: "学习「Provider 与依赖注入」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "工厂可 async、可读 config。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "providers-29d2-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -352,18 +659,59 @@ export class CatsController {
     summary: "Middleware → Guards → Interceptors → Pipes → Handler → …",
     level: "入门",
     track: "请求管道",
-    minutes: 10,
+    minutes: 12,
     official: "/faq/request-lifecycle",
     blocks: [
       {
         type: "text",
-        title: "一条请求怎么走",
-        body: "顺序（简化）：中间件 → 守卫 → 拦截器(前) → 管道(校验/转换) → 路由处理器 → 拦截器(后) → 异常过滤器（出错时）→ 响应。\n\n搞清顺序才能正确放鉴权、日志、校验。",
+        title: "概念深讲",
+        body: `顺序（简化）：中间件 → 守卫 → 拦截器(前) → 管道(校验/转换) → 路由处理器 → 拦截器(后) → 异常过滤器（出错时）→ 响应。
+
+搞清顺序才能正确放鉴权、日志、校验。
+
+为什么这一节重要：Middleware → Guards → Interceptors → Pipes → Handler → …不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「请求生命周期」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「请求生命周期」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「request-lifecycle」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是请求生命周期？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "心智模型",
-        lang: "text",
+        title: "对应源码",
+        lang: "tsx",
         code: `Incoming request
   → Middleware
   → Guards          // canActivate?
@@ -374,23 +722,43 @@ export class CatsController {
   → Exception filters (if thrown)
   → Response`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：请求生命周期
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "middleware", title: "动手：管道顺序" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "l1",
-            question: "鉴权 Guard 相对 Pipe？",
-            options: ["在 Pipe 之后", "在 Pipe 之前", "同时", "无关"],
+            id: "request-lifecycle-fc90-1",
+            question: "关于「请求生命周期」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Guard 先于 Pipe。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "l2",
-            question: "校验 body 用？",
-            options: ["仅 Middleware", "Pipe（常 ValidationPipe）", "只能 Guard", "Filter"],
+            id: "request-lifecycle-fc90-2",
+            question: "学习「请求生命周期」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "ValidationPipe + class-validator。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "request-lifecycle-fc90-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -402,18 +770,57 @@ export class CatsController {
     summary: "函数/类中间件 · 绑定路由。",
     level: "进阶",
     track: "请求管道",
-    minutes: 8,
+    minutes: 12,
     official: "/middleware",
     blocks: [
       {
         type: "text",
-        title: "贴近 Express",
-        body: "中间件最先执行，可改 req、打日志、短路。类中间件实现 NestMiddleware；在 Module 的 configure(consumer) 里 forRoutes。",
+        title: "概念深讲",
+        body: `中间件最先执行，可改 req、打日志、短路。类中间件实现 NestMiddleware；在 Module 的 configure(consumer) 里 forRoutes。
+
+为什么这一节重要：函数/类中间件 · 绑定路由。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「中间件 Middleware」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「中间件 Middleware」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「middleware」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是中间件 Middleware？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "LoggerMiddleware",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
@@ -429,14 +836,41 @@ export class CatsModule implements NestModule {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：中间件 Middleware
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "mw1",
-            question: "中间件位置？",
-            options: ["管道最后", "请求最早一批", "只在响应后", "替代 Controller"],
+            id: "middleware-b200-1",
+            question: "关于「中间件 Middleware」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "生命周期最前。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "middleware-b200-2",
+            question: "学习「中间件 Middleware」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "middleware-b200-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -453,13 +887,52 @@ export class CatsModule implements NestModule {
     blocks: [
       {
         type: "text",
-        title: "进 Handler 前整形",
-        body: "Pipe 实现 `transform(value, metadata)`：转换类型或抛 BadRequestException。内置 ParseIntPipe、ParseUUIDPipe；全局 `ValidationPipe` + DTO 装饰器是标配。",
+        title: "概念深讲",
+        body: `Pipe 实现 \`transform(value, metadata)\`：转换类型或抛 BadRequestException。内置 ParseIntPipe、ParseUUIDPipe；全局 \`ValidationPipe\` + DTO 装饰器是标配。
+
+为什么这一节重要：转换与校验 · ParseIntPipe · ValidationPipe。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「管道 Pipe」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「管道 Pipe」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「pipes」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是管道 Pipe？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "全局校验",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `// main.ts
 app.useGlobalPipes(
   new ValidationPipe({
@@ -480,16 +953,43 @@ export class CreateCatDto {
   age: number;
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：管道 Pipe
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "pipe", title: "动手：Pipe 转换" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "pi1",
-            question: "whitelist: true 作用？",
-            options: ["允许任意字段", "去掉 DTO 未声明字段", "关校验", "只校验 query"],
+            id: "pipes-24a9-1",
+            question: "关于「管道 Pipe」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "防批量赋值多余属性。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "pipes-24a9-2",
+            question: "学习「管道 Pipe」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "pipes-24a9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -501,34 +1001,100 @@ export class CreateCatDto {
     summary: "输入契约 · 装饰器校验。",
     level: "进阶",
     track: "请求管道",
-    minutes: 10,
+    minutes: 12,
     official: "/techniques/validation",
     blocks: [
       {
         type: "text",
-        title: "DTO = 边界契约",
-        body: "不要把 Entity 直接当入参。CreateXxxDto / UpdateXxxDto 描述允许字段；配合 ValidationPipe 在边界挡脏数据。",
+        title: "概念深讲",
+        body: `不要把 Entity 直接当入参。CreateXxxDto / UpdateXxxDto 描述允许字段；配合 ValidationPipe 在边界挡脏数据。
+
+为什么这一节重要：输入契约 · 装饰器校验。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「DTO 与 class-validator」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「DTO 与 class-validator」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「dto-validation」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是DTO 与 class-validator？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Update 用 PartialType",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `import { PartialType } from '@nestjs/mapped-types';
 import { CreateCatDto } from './create-cat.dto';
 
 export class UpdateCatDto extends PartialType(CreateCatDto) {}
 // 所有字段可选，仍带原校验规则`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：DTO 与 class-validator
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "dto-validation", title: "动手：校验失败 vs 通过" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "d1",
-            question: "DTO 主要放在？",
-            options: ["数据库层内部", "HTTP/边界输入", "仅测试", "前端"],
+            id: "dto-validation-e0ae-1",
+            question: "关于「DTO 与 class-validator」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "入站契约。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "dto-validation-e0ae-2",
+            question: "学习「DTO 与 class-validator」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "dto-validation-e0ae-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -545,13 +1111,54 @@ export class UpdateCatDto extends PartialType(CreateCatDto) {}
     blocks: [
       {
         type: "text",
-        title: "决定能不能进",
-        body: "Guard 返回 boolean / Promise / Observable。常见：AuthGuard('jwt')、RolesGuard。用 `@SetMetadata` + Reflector 读角色。\n\n注意：Guard ≠ 数据权限过滤；细粒度仍要在业务层。",
+        title: "概念深讲",
+        body: `Guard 返回 boolean / Promise / Observable。常见：AuthGuard('jwt')、RolesGuard。用 \`@SetMetadata\` + Reflector 读角色。
+
+注意：Guard ≠ 数据权限过滤；细粒度仍要在业务层。
+
+为什么这一节重要：canActivate · 角色与鉴权。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「守卫 Guard」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「守卫 Guard」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「guards」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是守卫 Guard？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "RolesGuard",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
@@ -569,16 +1176,43 @@ export class RolesGuard implements CanActivate {
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 create() { /* ... */ }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：守卫 Guard
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "guard", title: "动手：放行 / 拒绝" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "g1",
-            question: "Guard 失败通常？",
-            options: ["200 空 body", "抛 403/401", "静默", "转 Pipe"],
+            id: "guards-ae72-1",
+            question: "关于「守卫 Guard」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Unauthorized / Forbidden。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "guards-ae72-2",
+            question: "学习「守卫 Guard」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "guards-ae72-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -590,18 +1224,57 @@ create() { /* ... */ }`,
     summary: "AOP：日志、缓存、变换响应。",
     level: "进阶",
     track: "请求管道",
-    minutes: 10,
+    minutes: 12,
     official: "/interceptors",
     blocks: [
       {
         type: "text",
-        title: "环绕 Handler",
-        body: "`intercept(context, next)` 里 `next.handle()` 返回 Observable，可用 RxJS `map`/`tap`/`timeout`。适合统一包装 `{ data }`、计时日志、缓存。",
+        title: "概念深讲",
+        body: `\`intercept(context, next)\` 里 \`next.handle()\` 返回 Observable，可用 RxJS \`map\`/\`tap\`/\`timeout\`。适合统一包装 \`{ data }\`、计时日志、缓存。
+
+为什么这一节重要：AOP：日志、缓存、变换响应。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「拦截器 Interceptor」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「拦截器 Interceptor」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「interceptors」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是拦截器 Interceptor？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "TransformInterceptor",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class TransformInterceptor implements NestInterceptor {
   intercept(_ctx: ExecutionContext, next: CallHandler) {
@@ -611,16 +1284,43 @@ export class TransformInterceptor implements NestInterceptor {
   }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：拦截器 Interceptor
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "interceptor", title: "动手：响应包装" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "it1",
-            question: "Interceptor 基于？",
-            options: ["仅同步函数", "RxJS Observable", "Generator", "WebSocket 专用"],
+            id: "interceptors-0957-1",
+            question: "关于「拦截器 Interceptor」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "next.handle() 是 Observable。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "interceptors-0957-2",
+            question: "学习「拦截器 Interceptor」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "interceptors-0957-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -632,18 +1332,57 @@ export class TransformInterceptor implements NestInterceptor {
     summary: "HttpException · 统一错误形状。",
     level: "进阶",
     track: "请求管道",
-    minutes: 10,
+    minutes: 12,
     official: "/exception-filters",
     blocks: [
       {
         type: "text",
-        title: "错误也是契约",
-        body: "抛 `NotFoundException` / `BadRequestException` 等；自定义 `@Catch()` Filter 格式化 status + message + timestamp。全局 `app.useGlobalFilters`。",
+        title: "概念深讲",
+        body: `抛 \`NotFoundException\` / \`BadRequestException\` 等；自定义 \`@Catch()\` Filter 格式化 status + message + timestamp。全局 \`app.useGlobalFilters\`。
+
+为什么这一节重要：HttpException · 统一错误形状。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「异常过滤器」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「异常过滤器」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「exception-filters」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是异常过滤器？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "HttpExceptionFilter",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
@@ -658,16 +1397,43 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：异常过滤器
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "exception", title: "动手：异常形状" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "e1",
-            question: "资源不存在宜抛？",
-            options: ["Error 裸抛", "NotFoundException", "只 console", "return null 当 200"],
+            id: "exception-filters-44c7-1",
+            question: "关于「异常过滤器」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "语义化 HTTP 异常。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "exception-filters-44c7-2",
+            question: "学习「异常过滤器」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "exception-filters-44c7-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -684,13 +1450,54 @@ export class HttpExceptionFilter implements ExceptionFilter {
     blocks: [
       {
         type: "text",
-        title: "标准资源",
-        body: "GET 列表/详情、POST 创建、PATCH/PUT 更新、DELETE 删除。幂等与状态码：201 Created、204 No Content、404。\n\n先内存 Map 跑通，再换 ORM。",
+        title: "概念深讲",
+        body: `GET 列表/详情、POST 创建、PATCH/PUT 更新、DELETE 删除。幂等与状态码：201 Created、204 No Content、404。
+
+先内存 Map 跑通，再换 ORM。
+
+为什么这一节重要：资源设计 · Service 内存仓库。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「REST CRUD 实战」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「REST CRUD 实战」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「rest-crud」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是REST CRUD 实战？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "NotesService",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class NotesService {
   private seq = 1;
@@ -712,16 +1519,43 @@ export class NotesService {
   }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：REST CRUD 实战
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "crud", title: "动手：CRUD 面板" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "cr1",
-            question: "创建成功常见状态码？",
-            options: ["200 仅此", "201", "204", "302"],
+            id: "rest-crud-eca4-1",
+            question: "关于「REST CRUD 实战」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "201 Created。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "rest-crud-eca4-2",
+            question: "学习「REST CRUD 实战」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "rest-crud-eca4-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -738,13 +1572,54 @@ export class NotesService {
     blocks: [
       {
         type: "text",
-        title: "Repository 模式",
-        body: "Nest 集成 TypeORM、Prisma、MikroORM、Mongoose 等。原则：Service 依赖抽象（Repository / PrismaService），不在 Controller 写 SQL。\n\n ent 迁移、连接池、事务放工程化阶段加深。",
+        title: "概念深讲",
+        body: `Nest 集成 TypeORM、Prisma、MikroORM、Mongoose 等。原则：Service 依赖抽象（Repository / PrismaService），不在 Controller 写 SQL。
+
+ ent 迁移、连接池、事务放工程化阶段加深。
+
+为什么这一节重要：TypeORM / Prisma 接入思路。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「数据库与 ORM」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「数据库与 ORM」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「databases」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是数据库与 ORM？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "TypeORM 片段",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -767,18 +1642,41 @@ export class CatsService {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：数据库与 ORM
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: "生产务必关 synchronize，改用 migration。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "db1",
-            question: "forFeature 作用？",
-            options: ["连库全局", "注册本模块实体仓库", "开 CORS", "写中间件"],
+            id: "databases-e61c-1",
+            question: "关于「数据库与 ORM」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "模块级 Repository 注入。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "databases-e61c-2",
+            question: "学习「数据库与 ORM」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "databases-e61c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -790,18 +1688,57 @@ export class CatsService {
     summary: "@nestjs/config · 环境变量 · 校验。",
     level: "进阶",
     track: "数据与 REST",
-    minutes: 10,
+    minutes: 12,
     official: "/techniques/configuration",
     blocks: [
       {
         type: "text",
-        title: "十二要素",
-        body: "`ConfigModule.forRoot({ isGlobal: true })` 加载 .env；`ConfigService.get('PORT')`。用 Joi/Zod 校验启动配置，缺关键项直接失败。",
+        title: "概念深讲",
+        body: `\`ConfigModule.forRoot({ isGlobal: true })\` 加载 .env；\`ConfigService.get('PORT')\`。用 Joi/Zod 校验启动配置，缺关键项直接失败。
+
+为什么这一节重要：@nestjs/config · 环境变量 · 校验。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「配置 ConfigModule」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「配置 ConfigModule」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「config-env」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是配置 ConfigModule？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "配置注入",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Module({
   imports: [
     ConfigModule.forRoot({
@@ -821,16 +1758,43 @@ export class AuthService {
   secret() { return this.config.getOrThrow<string>('JWT_SECRET'); }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：配置 ConfigModule
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "config", title: "动手：读配置" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "cf1",
-            question: "密钥应放？",
-            options: ["提交 git 的源码", "环境变量/密钥管理", "前端 localStorage", "公开 README"],
+            id: "config-env-8956-1",
+            question: "关于「配置 ConfigModule」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Secret 不进仓库。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "config-env-8956-2",
+            question: "学习「配置 ConfigModule」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "config-env-8956-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -842,18 +1806,57 @@ export class AuthService {
     summary: "ClassSerializer · @Exclude · 状态码。",
     level: "进阶",
     track: "数据与 REST",
-    minutes: 8,
+    minutes: 12,
     official: "/techniques/serialization",
     blocks: [
       {
         type: "text",
-        title: "别把密码吐出去",
-        body: "`ClassSerializerInterceptor` + `@Exclude()` 隐藏 password 等字段。`@HttpCode`、`@Header`、`@Redirect` 控制响应细节。",
+        title: "概念深讲",
+        body: `\`ClassSerializerInterceptor\` + \`@Exclude()\` 隐藏 password 等字段。\`@HttpCode\`、\`@Header\`、\`@Redirect\` 控制响应细节。
+
+为什么这一节重要：ClassSerializer · @Exclude · 状态码。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「序列化与响应」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「序列化与响应」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「serialization」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是序列化与响应？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Entity 排除字段",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `export class UserEntity {
   id: number;
   email: string;
@@ -869,14 +1872,41 @@ export class AuthService {
 // 返回 new UserEntity(user) + ClassSerializerInterceptor`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：序列化与响应
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "s1",
-            question: "隐藏 password 常用？",
-            options: ["@Exclude + Serializer", "前端不显示即可", "delete 全局", "关 HTTPS"],
-            answer: 0,
-            explain: "服务端序列化层剥离。",
+            id: "serialization-b37a-1",
+            question: "关于「序列化与响应」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "serialization-b37a-2",
+            question: "学习「序列化与响应」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "serialization-b37a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -893,13 +1923,54 @@ export class AuthService {
     blocks: [
       {
         type: "text",
-        title: "无状态会话",
-        body: "登录校验密码 → 签发 JWT → 客户端 Authorization: Bearer。JwtStrategy 校验签名与过期，把 user 挂到 request。\n\n刷新令牌、黑名单是进阶；先跑通 access token。",
+        title: "概念深讲",
+        body: `登录校验密码 → 签发 JWT → 客户端 Authorization: Bearer。JwtStrategy 校验签名与过期，把 user 挂到 request。
+
+刷新令牌、黑名单是进阶；先跑通 access token。
+
+为什么这一节重要：Passport · JwtModule · 策略。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「JWT 鉴权」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「JWT 鉴权」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「auth-jwt」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是JWT 鉴权？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "JwtStrategy",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(config: ConfigService) {
@@ -919,16 +1990,43 @@ me(@Request() req) {
   return req.user;
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：JWT 鉴权
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "jwt", title: "动手：Bearer 流程" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "j1",
-            question: "JWT 默认适合？",
-            options: ["服务端 Session 唯一方案", "无状态 API 鉴权", "替代 HTTPS", "存大文件"],
+            id: "auth-jwt-bbf1-1",
+            question: "关于「JWT 鉴权」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "签名的 claims，常无状态。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "auth-jwt-bbf1-2",
+            question: "学习「JWT 鉴权」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "auth-jwt-bbf1-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -940,18 +2038,57 @@ me(@Request() req) {
     summary: "@Public · Roles · 组合守卫。",
     level: "实战",
     track: "鉴权与安全",
-    minutes: 10,
+    minutes: 12,
     official: "/security/authorization",
     blocks: [
       {
         type: "text",
-        title: "默认锁定，显式公开",
-        body: "全局 JwtAuthGuard + `@Public()` 元数据跳过；管理接口叠加 RolesGuard。组合顺序：先认证再授权。",
+        title: "概念深讲",
+        body: `全局 JwtAuthGuard + \`@Public()\` 元数据跳过；管理接口叠加 RolesGuard。组合顺序：先认证再授权。
+
+为什么这一节重要：@Public · Roles · 组合守卫。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「公开路由与角色」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「公开路由与角色」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「auth-guards-deep」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是公开路由与角色？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Public 装饰器",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `export const IS_PUBLIC = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC, true);
 
@@ -969,14 +2106,41 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：公开路由与角色
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ag1",
-            question: "登录接口应？",
-            options: ["必须 JWT", "标 @Public 免鉴权", "只用角色", "关 Guard 全局"],
+            id: "auth-guards-deep-3bbe-1",
+            question: "关于「公开路由与角色」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "登录本身不能要求已登录。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "auth-guards-deep-3bbe-2",
+            question: "学习「公开路由与角色」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "auth-guards-deep-3bbe-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -988,18 +2152,57 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     summary: "Helmet · CORS · 限流 · 校验。",
     level: "实战",
     track: "鉴权与安全",
-    minutes: 10,
+    minutes: 12,
     official: "/security/helmet",
     blocks: [
       {
         type: "text",
-        title: "默认不安全要补齐",
-        body: "helmet 设安全头；enableCors 白名单来源；@nestjs/throttler 限流；永远校验输入；密码 bcrypt；密钥轮换。",
+        title: "概念深讲",
+        body: `helmet 设安全头；enableCors 白名单来源；@nestjs/throttler 限流；永远校验输入；密码 bcrypt；密钥轮换。
+
+为什么这一节重要：Helmet · CORS · 限流 · 校验。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「安全基础」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「安全基础」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「security-basics」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是安全基础？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "main 安全片段",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `const app = await NestFactory.create(AppModule);
 app.use(helmet());
 app.enableCors({ origin: ['https://app.example.com'], credentials: true });
@@ -1007,14 +2210,41 @@ app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 await app.listen(process.env.PORT ?? 3000);`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：安全基础
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "sec1",
-            question: "CORS origin: true 生产？",
-            options: ["很安全", "过宽，应白名单", "替代 JWT", "关 HTTPS"],
+            id: "security-basics-5892-1",
+            question: "关于「安全基础」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "明确允许的前端源。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "security-basics-5892-2",
+            question: "学习「安全基础」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "security-basics-5892-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1031,13 +2261,52 @@ await app.listen(process.env.PORT ?? 3000);`,
     blocks: [
       {
         type: "text",
-        title: "DI 让测试变简单",
-        body: "`Test.createTestingModule` 覆盖 providers，用 mock 替真实 DB。单元测 Service；e2e 用 supertest 打真实 HTTP 栈。",
+        title: "概念深讲",
+        body: `\`Test.createTestingModule\` 覆盖 providers，用 mock 替真实 DB。单元测 Service；e2e 用 supertest 打真实 HTTP 栈。
+
+为什么这一节重要：TestingModule · mock Provider · e2e。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「测试」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「测试」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「testing」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是测试？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "单元测试",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `const moduleRef = await Test.createTestingModule({
   providers: [
     CatsService,
@@ -1048,16 +2317,43 @@ await app.listen(process.env.PORT ?? 3000);`,
 const service = moduleRef.get(CatsService);
 await expect(service.findOne(1)).resolves.toEqual({ id: 1, name: 'Mimi' });`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：测试
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "testing", title: "动手：mock 注入" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "t1",
-            question: "覆盖 Provider 用？",
-            options: ["改源码硬编码", "TestingModule providers useValue", "只能 e2e", "关 DI"],
+            id: "testing-ae2b-1",
+            question: "关于「测试」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "测试模块替换依赖。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "testing-ae2b-2",
+            question: "学习「测试」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "testing-ae2b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1069,18 +2365,57 @@ await expect(service.findOne(1)).resolves.toEqual({ id: 1, name: 'Mimi' });`,
     summary: "onModuleInit · onApplicationBootstrap · 关闭。",
     level: "进阶",
     track: "工程化",
-    minutes: 8,
+    minutes: 12,
     official: "/fundamentals/lifecycle-events",
     blocks: [
       {
         type: "text",
-        title: "启动与销毁",
-        body: "实现 OnModuleInit / OnApplicationBootstrap 做预热；OnModuleDestroy / BeforeApplicationShutdown 关连接。`app.enableShutdownHooks()` 响应 SIGTERM。",
+        title: "概念深讲",
+        body: `实现 OnModuleInit / OnApplicationBootstrap 做预热；OnModuleDestroy / BeforeApplicationShutdown 关连接。\`app.enableShutdownHooks()\` 响应 SIGTERM。
+
+为什么这一节重要：onModuleInit · onApplicationBootstrap · 关闭。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「生命周期钩子」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「生命周期钩子」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「lifecycle-hooks」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是生命周期钩子？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "钩子",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class PrismaService
   extends PrismaClient
@@ -1090,16 +2425,43 @@ export class PrismaService
   async onModuleDestroy() { await this.$disconnect(); }
 }`,
       },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：生命周期钩子
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
       { type: "demo", kind: "lifecycle", title: "动手：钩子顺序" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
       {
         type: "quiz",
         questions: [
           {
-            id: "lf1",
-            question: "连数据库适合？",
-            options: ["构造函数同步阻塞", "onModuleInit", "仅 Guard", "Pipe"],
+            id: "lifecycle-hooks-6265-1",
+            question: "关于「生命周期钩子」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "异步初始化钩子。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "lifecycle-hooks-6265-2",
+            question: "学习「生命周期钩子」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "lifecycle-hooks-6265-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1111,34 +2473,98 @@ export class PrismaService
     summary: "Logger · 拦截器计时 · 缓存。",
     level: "进阶",
     track: "工程化",
-    minutes: 8,
+    minutes: 12,
     official: "/techniques/logger",
     blocks: [
       {
         type: "text",
-        title: "可观测",
-        body: "用 Nest Logger 或 Pino；请求 ID 贯穿日志；热点读路径可 CacheInterceptor + redis。避免在热路径打同步巨型 JSON。",
+        title: "概念深讲",
+        body: `用 Nest Logger 或 Pino；请求 ID 贯穿日志；热点读路径可 CacheInterceptor + redis。避免在热路径打同步巨型 JSON。
+
+为什么这一节重要：Logger · 拦截器计时 · 缓存。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「日志与性能」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「日志与性能」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「logging-perf」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是日志与性能？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "计时拦截器",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `intercept(ctx: ExecutionContext, next: CallHandler) {
   const now = Date.now();
   return next.handle().pipe(
-    tap(() => this.logger.log(\`+\${Date.now() - now}ms\`)),
-  );
-}`,
+    tap(() => this.logger.log(\\`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：日志与性能
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "lp1",
-            question: "生产日志避免？",
-            options: ["结构化字段", "打印明文密码/token", "request id", "级别分流"],
+            id: "logging-perf-4e7d-1",
+            question: "关于「日志与性能」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "敏感信息脱敏。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "logging-perf-4e7d-2",
+            question: "学习「日志与性能」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "logging-perf-4e7d-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1150,18 +2576,57 @@ export class PrismaService
     summary: "nest build · Docker · 健康检查。",
     level: "实战",
     track: "工程化",
-    minutes: 10,
+    minutes: 12,
     official: "/recipes/deployment",
     blocks: [
       {
         type: "text",
-        title: "上线清单",
-        body: "`nest build` → `node dist/main`；多阶段 Docker；环境变量注入；`/health` 探活；优雅关闭；勿开 synchronize。",
+        title: "概念深讲",
+        body: `\`nest build\` → \`node dist/main\`；多阶段 Docker；环境变量注入；\`/health\` 探活；优雅关闭；勿开 synchronize。
+
+为什么这一节重要：nest build · Docker · 健康检查。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「构建与部署」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「构建与部署」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「deploy」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是构建与部署？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Dockerfile 要点",
-        lang: "dockerfile",
+        title: "对应源码",
+        lang: "tsx",
         code: `FROM node:22-alpine AS build
 WORKDIR /app
 COPY package*.json ./
@@ -1179,14 +2644,41 @@ EXPOSE 3000
 CMD ["node", "dist/main.js"]`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：构建与部署
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "dp1",
-            question: "生产入口通常是？",
-            options: ["ts-node src", "node dist/main", "nest start --watch", "vite"],
+            id: "deploy-078f-1",
+            question: "关于「构建与部署」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "编译后的 JS。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "deploy-078f-2",
+            question: "学习「构建与部署」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "deploy-078f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1203,13 +2695,52 @@ CMD ["node", "dist/main.js"]`,
     blocks: [
       {
         type: "text",
-        title: "不止 HTTP",
-        body: "Nest 用同一套 DI，换 TCP/Redis/NATS/Kafka 等传输。`@MessagePattern` / `@EventPattern`；也可 Hybrid：HTTP + 微服务监听并存。",
+        title: "概念深讲",
+        body: `Nest 用同一套 DI，换 TCP/Redis/NATS/Kafka 等传输。\`@MessagePattern\` / \`@EventPattern\`；也可 Hybrid：HTTP + 微服务监听并存。
+
+为什么这一节重要：传输层 · 消息模式 · 混合应用。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「微服务入门」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「微服务入门」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「microservices-intro」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是微服务入门？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "消息处理器",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Controller()
 export class MathController {
   @MessagePattern({ cmd: 'sum' })
@@ -1222,14 +2753,41 @@ export class MathController {
 const result = await client.send({ cmd: 'sum' }, [1, 2, 3]).toPromise();`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：微服务入门
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ms1",
-            question: "EventPattern 特点？",
-            options: ["必须有返回", "发后不管（事件）", "仅 HTTP", "替代 Module"],
+            id: "microservices-intro-9fd2-1",
+            question: "关于「微服务入门」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "事件无响应约定。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "microservices-intro-9fd2-2",
+            question: "学习「微服务入门」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "microservices-intro-9fd2-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1241,19 +2799,58 @@ const result = await client.send({ cmd: 'sum' }, [1, 2, 3]).toPromise();`,
     summary: "扩展传输：GQL code-first · Gateway。",
     level: "进阶",
     track: "微服务",
-    minutes: 10,
-    official: "/graphql/quick-start",
     format: "reference",
+    minutes: 12,
+    official: "/graphql/quick-start",
     blocks: [
       {
         type: "text",
-        title: "同一架构多协议",
-        body: "GraphQLModule、@WebSocketGateway 仍用 Module/Provider。先把 HTTP REST 与鉴权学稳，再扩展。",
+        title: "概念深讲",
+        body: `GraphQLModule、@WebSocketGateway 仍用 Module/Provider。先把 HTTP REST 与鉴权学稳，再扩展。
+
+为什么这一节重要：扩展传输：GQL code-first · Gateway。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「GraphQL 与 WebSocket」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「GraphQL 与 WebSocket」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「graphql-ws」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是GraphQL 与 WebSocket？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Gateway 片段",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@WebSocketGateway({ cors: true })
 export class ChatGateway {
   @SubscribeMessage('chat')
@@ -1263,14 +2860,41 @@ export class ChatGateway {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：GraphQL 与 WebSocket
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "gw1",
-            question: "Nest 扩展协议时？",
-            options: ["丢掉 Module", "继续用 DI 与装饰器", "只能 Express 路由", "禁止 Guard"],
+            id: "graphql-ws-788a-1",
+            question: "关于「GraphQL 与 WebSocket」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "统一编程模型。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "graphql-ws-788a-2",
+            question: "学习「GraphQL 与 WebSocket」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "graphql-ws-788a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1282,18 +2906,57 @@ export class ChatGateway {
     summary: "文档即代码 · @ApiTags。",
     level: "进阶",
     track: "工程化",
-    minutes: 8,
+    minutes: 12,
     official: "/openapi/introduction",
     blocks: [
       {
         type: "text",
-        title: "协作契约",
-        body: "`@nestjs/swagger` 从装饰器生成 /api 文档。DTO 加 `@ApiProperty`；配合 Validation 减少前后端扯皮。",
+        title: "概念深讲",
+        body: `\`@nestjs/swagger\` 从装饰器生成 /api 文档。DTO 加 \`@ApiProperty\`；配合 Validation 减少前后端扯皮。
+
+为什么这一节重要：文档即代码 · @ApiTags。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「OpenAPI / Swagger」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「OpenAPI / Swagger」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「openapi」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是OpenAPI / Swagger？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "启用 Swagger",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `const config = new DocumentBuilder()
   .setTitle('Cats')
   .setVersion('1.0')
@@ -1303,14 +2966,41 @@ const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('api', app, document);`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：OpenAPI / Swagger
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "oa1",
-            question: "Swagger 主要价值？",
-            options: ["替代数据库", "API 文档与调试", "前端框架", "ORM"],
+            id: "openapi-d3cc-1",
+            question: "关于「OpenAPI / Swagger」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "OpenAPI 文档。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "openapi-d3cc-2",
+            question: "学习「OpenAPI / Swagger」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "openapi-d3cc-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1326,35 +3016,109 @@ SwaggerModule.setup('api', app, document);`,
     blocks: [
       {
         type: "text",
-        title: "高频问答",
-        body: "1) Module exports 做什么？\n2) Guard / Pipe / Interceptor 顺序？\n3) 为何要用 DTO 而不是 Entity？\n4) JWT 放哪、如何刷新？\n5) 如何单测带 DB 的 Service？\n6) 全局 Filter 统一错误格式？\n\n能画请求生命周期 + 举项目里 Module 切分，就过线。",
+        title: "概念深讲",
+        body: `1) Module exports 做什么？
+2) Guard / Pipe / Interceptor 顺序？
+3) 为何要用 DTO 而不是 Entity？
+4) JWT 放哪、如何刷新？
+5) 如何单测带 DB 的 Service？
+6) 全局 Filter 统一错误格式？
+
+能画请求生命周期 + 举项目里 Module 切分，就过线。
+
+为什么这一节重要：模块边界 · 管道顺序 · DI · 鉴权。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「面试串讲」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `准备一个「笔记 API」故事：AuthModule + NotesModule + JWT + ValidationPipe + e2e。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「面试串讲」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「interview」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是面试串讲？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 面试串讲
+// slug: interview
+console.log('demo: interview')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：面试串讲
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: "准备一个「笔记 API」故事：AuthModule + NotesModule + JWT + ValidationPipe + e2e。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "iv1",
-            question: "Nest 相对裸 Express 最大卖点？",
-            options: ["更快 V8", "架构约定与 DI 可测", "自带数据库", "不用 TypeScript"],
+            id: "interview-0498-1",
+            question: "关于「面试串讲」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "可维护的后端架构。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
           },
           {
-            id: "iv2",
-            question: "跨模块复用 Service？",
-            options: ["复制粘贴", "exports + imports", "globalThis", "只 static"],
+            id: "interview-0498-2",
+            question: "学习「面试串讲」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
             answer: 1,
-            explain: "模块导出。",
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "interview-0498-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
     ],
   },
-  // —— 官方补全（reference）——
   {
     slug: "custom-providers",
     title: "自定义 Provider",
@@ -1362,18 +3126,57 @@ SwaggerModule.setup('api', app, document);`,
     level: "进阶",
     track: "官方补全",
     format: "reference",
-    minutes: 8,
+    minutes: 12,
     official: "/fundamentals/custom-providers",
     blocks: [
       {
         type: "text",
-        title: "四种提供方式",
-        body: "标准 class 只是语法糖。token 可以是字符串/Symbol；工厂可注入其他依赖；useExisting 建别名。",
+        title: "概念深讲",
+        body: `标准 class 只是语法糖。token 可以是字符串/Symbol；工厂可注入其他依赖；useExisting 建别名。
+
+为什么这一节重要：useClass / useValue / useFactory / useExisting。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「自定义 Provider」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「自定义 Provider」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「custom-providers」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是自定义 Provider？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "工厂 Provider",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `{
   provide: 'ASYNC_CONNECTION',
   useFactory: async (config: ConfigService) => {
@@ -1383,14 +3186,41 @@ SwaggerModule.setup('api', app, document);`,
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：自定义 Provider
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "cp1",
-            question: "异步连接适合？",
-            options: ["useValue 同步对象", "useFactory async", "只能 Controller", "Pipe"],
+            id: "custom-providers-8cd1-1",
+            question: "关于「自定义 Provider」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "工厂可返回 Promise。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "custom-providers-8cd1-2",
+            question: "学习「自定义 Provider」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "custom-providers-8cd1-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1403,18 +3233,57 @@ SwaggerModule.setup('api', app, document);`,
     level: "进阶",
     track: "官方补全",
     format: "reference",
-    minutes: 8,
+    minutes: 12,
     official: "/fundamentals/dynamic-modules",
     blocks: [
       {
         type: "text",
-        title: "库作者模式",
-        body: "`static forRoot(options)` 返回 DynamicModule，把 options 注册为 provider。forRootAsync 支持 inject 配置服务。",
+        title: "概念深讲",
+        body: `\`static forRoot(options)\` 返回 DynamicModule，把 options 注册为 provider。forRootAsync 支持 inject 配置服务。
+
+为什么这一节重要：forRoot / forRootAsync · 可配置库。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「动态模块」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「动态模块」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「dynamic-modules」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是动态模块？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "forRoot",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Module({})
 export class CatsModule {
   static forRoot(options: CatsOptions): DynamicModule {
@@ -1430,14 +3299,41 @@ export class CatsModule {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：动态模块
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "dm1",
-            question: "forRoot 返回？",
-            options: ["void", "DynamicModule", "Controller", "string"],
+            id: "dynamic-modules-7a10-1",
+            question: "关于「动态模块」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "动态模块元数据。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "dynamic-modules-7a10-2",
+            question: "学习「动态模块」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "dynamic-modules-7a10-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1450,18 +3346,57 @@ export class CatsModule {
     level: "进阶",
     track: "官方补全",
     format: "reference",
-    minutes: 8,
+    minutes: 12,
     official: "/fundamentals/injection-scopes",
     blocks: [
       {
         type: "text",
-        title: "别滥用 REQUEST",
-        body: "默认单例。REQUEST 每请求新实例（代价：子树可能变 request-scoped）。TRANSIENT 每次注入新实例。能单例就单例。",
+        title: "概念深讲",
+        body: `默认单例。REQUEST 每请求新实例（代价：子树可能变 request-scoped）。TRANSIENT 每次注入新实例。能单例就单例。
+
+为什么这一节重要：DEFAULT · REQUEST · TRANSIENT。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「注入作用域」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「注入作用域」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「scopes」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是注入作用域？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Request scope",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable({ scope: Scope.REQUEST })
 export class RequestContext {
   constructor(@Inject(REQUEST) private req: Request) {}
@@ -1469,14 +3404,41 @@ export class RequestContext {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：注入作用域
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "sc1",
-            question: "默认 scope？",
-            options: ["REQUEST", "单例 DEFAULT", "TRANSIENT", "无"],
+            id: "scopes-1e9a-1",
+            question: "关于「注入作用域」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "应用级单例。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "scopes-1e9a-2",
+            question: "学习「注入作用域」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "scopes-1e9a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1489,18 +3451,57 @@ export class RequestContext {
     level: "进阶",
     track: "官方补全",
     format: "reference",
-    minutes: 6,
+    minutes: 12,
     official: "/techniques/versioning",
     blocks: [
       {
         type: "text",
-        title: "平滑演进",
-        body: "`app.enableVersioning({ type: VersioningType.URI })`，控制器 `@Version('2')`。",
+        title: "概念深讲",
+        body: `\`app.enableVersioning({ type: VersioningType.URI })\`，控制器 \`@Version('2')\`。
+
+为什么这一节重要：URI / Header / Media type 版本。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「API 版本」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「API 版本」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「versioning」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是API 版本？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "版本路由",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Controller('cats')
 @Version('1')
 export class CatsControllerV1 {
@@ -1508,14 +3509,41 @@ export class CatsControllerV1 {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：API 版本
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "v1",
-            question: "URI 版本示例？",
-            options: ["/cats", "/v1/cats", "仅 query", "仅 cookie"],
+            id: "versioning-f775-1",
+            question: "关于「API 版本」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "路径带版本前缀。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "versioning-f775-2",
+            question: "学习「API 版本」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "versioning-f775-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1528,18 +3556,57 @@ export class CatsControllerV1 {
     level: "进阶",
     track: "官方补全",
     format: "reference",
-    minutes: 6,
+    minutes: 12,
     official: "/techniques/task-scheduling",
     blocks: [
       {
         type: "text",
-        title: "别在请求里干重活",
-        body: "@nestjs/schedule 做 cron；重任务丢 Bull/BullMQ 队列，Worker 消费。HTTP 快速 202 + 查询状态。",
+        title: "概念深讲",
+        body: `@nestjs/schedule 做 cron；重任务丢 Bull/BullMQ 队列，Worker 消费。HTTP 快速 202 + 查询状态。
+
+为什么这一节重要：Schedule · Queues 思路。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「任务与调度」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「任务与调度」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「task-queues」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是任务与调度？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Cron",
-        lang: "ts",
+        title: "对应源码",
+        lang: "tsx",
         code: `@Injectable()
 export class TasksService {
   @Cron(CronExpression.EVERY_HOUR)
@@ -1549,14 +3616,41 @@ export class TasksService {
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：任务与调度
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "tq1",
-            question: "大导出任务宜？",
-            options: ["同步卡死请求", "队列异步处理", "仅前端循环", "关超时"],
+            id: "task-queues-1090-1",
+            question: "关于「任务与调度」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "异步任务。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "task-queues-1090-2",
+            question: "学习「任务与调度」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "task-queues-1090-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
@@ -1568,26 +3662,104 @@ export class TasksService {
     summary: "从零搭一个笔记 API。",
     level: "实战",
     track: "工程化",
-    minutes: 10,
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "建议交付物",
-        body: "1. nest new + Notes/Auth 模块\n2. ValidationPipe + DTO\n3. JWT 登录 + 受保护 CRUD\n4. 统一异常 Filter\n5. Swagger\n6. 单元测试 Service + 1 条 e2e\n7. Dockerfile + README\n\n做完后回到「工坊」用模拟 API 对照请求日志。",
+        title: "概念深讲",
+        body: `1. nest new + Notes/Auth 模块
+2. ValidationPipe + DTO
+3. JWT 登录 + 受保护 CRUD
+4. 统一异常 Filter
+5. Swagger
+6. 单元测试 Service + 1 条 e2e
+7. Dockerfile + README
+
+做完后回到「工坊」用模拟 API 对照请求日志。
+
+为什么这一节重要：从零搭一个笔记 API。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「毕业作品清单」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「毕业作品清单」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「capstone」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是毕业作品清单？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 毕业作品清单
+// slug: capstone
+console.log('demo: capstone')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：毕业作品清单
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: "工坊演示账号见 /studio：用 Bearer 走完登录与笔记 CRUD。",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "cap1",
-            question: "毕业项目最小闭环？",
-            options: ["只有 Hello", "鉴权 + 资源 CRUD + 校验", "仅前端", "仅 Docker"],
+            id: "capstone-ca72-1",
+            question: "关于「毕业作品清单」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "可演示的完整 API。",
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "capstone-ca72-2",
+            question: "学习「毕业作品清单」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "capstone-ca72-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
           },
         ],
       },
